@@ -1,0 +1,38 @@
+syntax = "proto3";
+package pb;
+option go_package = "./";
+
+message Player{
+  int64 pid = 1;
+}
+
+message Position{
+  float X = 1;
+  float Y = 2;
+  float Z = 3;
+  float V = 4;
+}
+
+
+message BroadCast{
+  int64 Pid = 1;
+  int64 MsgType = 2;// 1-世界聊天， 2-玩家位置， 3-动作 4-移动后的坐标
+  oneof Msg{
+    string content = 3; // 聊天内容
+    Position p = 4; //位置信息
+    int64 ActionData = 5; //具体动作
+  }
+}
+
+message Talk{
+  string Content = 1;
+}
+
+message SyncPlays{
+  repeated PlayerAndPos players=1;
+}
+
+message PlayerAndPos{
+  int32 Pid=1;
+  Position Pos=2;
+}
